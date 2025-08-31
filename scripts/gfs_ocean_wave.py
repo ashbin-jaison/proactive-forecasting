@@ -2,9 +2,9 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from skyfora.data import open_opendap_dataset, get_gfs_wave_opendap_url, get_latest_gfs_cycle
-from skyfora.plot import create_plots, add_country_borders
-from skyfora.geo import load_country_borders
+from utils.data import open_opendap_dataset, get_gfs_wave_opendap_url, get_latest_gfs_cycle
+from utils.plot import create_plots, add_country_borders
+from utils.geo import load_country_borders
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import plotly.io as pio
@@ -12,9 +12,9 @@ import numpy as np
 from datetime import datetime
 
 # sourcing data
-cycle = get_latest_gfs_cycle() # There are 4 cycles of GFS data per day, get the latest cycle
+cycle, yyyymmdd = get_latest_gfs_cycle() # There are 4 cycles of GFS data per day, get the latest cycle
 NUM_TIMESTEPS = 17  # Set number of time steps here, t+1 to t+NUM_TIMESTEPS
-opendap_url = get_gfs_wave_opendap_url(datetime.utcnow(), cycle) # Get the OPeNDAP URL for the latest cycle
+opendap_url = get_gfs_wave_opendap_url(yyyymmdd, cycle) # Get the OPeNDAP URL for the latest cycle
 print(f"Using GFS OPeNDAP URL: {opendap_url}")
 
 # Loading data

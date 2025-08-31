@@ -6,15 +6,17 @@ from datetime import datetime, timedelta
 
 def get_latest_gfs_cycle(buffer_hours=6):
     now = datetime.utcnow() - timedelta(hours=buffer_hours)
+    yyyymmdd = now.strftime("%Y%m%d")
+    print(yyyymmdd)
     hour = now.hour
     if hour >= 18:
-        return "18"
+        return "18",yyyymmdd
     elif hour >= 12:
-        return "12"
+        return "12",yyyymmdd
     elif hour >= 6:
-        return "06"
+        return "06",yyyymmdd
     else:
-        return "00"
+        return "00",yyyymmdd
 
 def open_opendap_dataset(url):
     try:
@@ -25,17 +27,11 @@ def open_opendap_dataset(url):
         return None
     
 # --- GFS OPeNDAP URL GENERATOR ---
-def get_gfs_opendap_url(date=None, cycle="00"):
-    if date is None:
-        date = datetime.utcnow()
-    yyyymmdd = date.strftime("%Y%m%d")
+def get_gfs_opendap_url(yyyymmdd, cycle="00"):
     return f"http://nomads.ncep.noaa.gov:80/dods/gfs_0p25/gfs{yyyymmdd}/gfs_0p25_{cycle}z"
 
 # --- GFS OPeNDAP URL GENERATOR ---
-def get_gfs_wave_opendap_url(date=None, cycle="00"):
-    if date is None:
-        date = datetime.utcnow()
-    yyyymmdd = date.strftime("%Y%m%d")
+def get_gfs_wave_opendap_url(yyyymmdd, cycle="00"):
     return f"http://nomads.ncep.noaa.gov:80/dods/wave/gfswave/{yyyymmdd}/gfswave.global.0p25_{cycle}z"
 
 def extract_shapefile(zip_path, extract_dir):

@@ -39,8 +39,8 @@ st.info("""
 """)
 
 # Loads the latest GFS Wave Data
-cycle = get_latest_gfs_cycle()
-opendap_url = get_gfs_wave_opendap_url(datetime.utcnow(), cycle) # Get the OPeNDAP URL for the latest cycle
+cycle, yyyymmdd = get_latest_gfs_cycle()
+opendap_url = get_gfs_wave_opendap_url(yyyymmdd, cycle) # Get the OPeNDAP URL for the latest cycle
 print(f"Using GFS OPeNDAP URL: {opendap_url}")
 # Loading data
 ds = open_opendap_dataset(opendap_url) 

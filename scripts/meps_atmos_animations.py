@@ -6,9 +6,9 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import plotly.graph_objects as go
 import plotly.io as pio
 import numpy as np
-from skyfora.data import open_opendap_dataset
-from skyfora.plot import create_scatter, add_country_borders
-from skyfora.geo import load_country_borders
+from utils.data import open_opendap_dataset
+from utils.plot import create_scatter, add_country_borders
+from utils.geo import load_country_borders
 
 
 # data configuration
@@ -107,4 +107,3 @@ add_country_borders(fig_anim, world, row=3, col=1)
 
 pio.renderers.default = "browser"
 fig_anim.show()
-
