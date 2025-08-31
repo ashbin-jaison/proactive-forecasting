@@ -41,13 +41,13 @@ Sample input data is given is **sample_app_upload_data/**
 
 ### Shipping Routes
 
-| RouteName | Longitude | Latitude |
-|-----------|-----------|----------|
-| Route1    | 5.0       | 60.0     |
-| Route1    | 10.0      | 62.0     |
-| Route1    | 15.0      | 64.0     |
-| Route2    | 7.0       | 58.0     |
-| Route2    | 12.0      | 59.5     |
+| Longitude | Latitude |
+|-----------|----------|
+| 5.0       | 60.0     |
+| 10.0      | 62.0     |
+| 15.0      | 64.0     |
+| 7.0       | 58.0     |
+| 12.0      | 59.5     |
 
 **Required columns for wind parks:**  
 - `Longitude`, `Latitude`, `RotorRadius_m`, `RatedPower_kW`, `CutInWind_mps`, `RatedWind_mps`, `CutoffWind_mps`  
