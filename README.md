@@ -1,4 +1,4 @@
-# Proactive Forecast Visualistions, Wind Power & Shipping Route Forecasting
+# Proactive Forecast Visualisations, Wind Power & Shipping Route Forecasting
 
 This project provides an interactive platform for exploring wind power forecasts at user-specified wind park locations **and along shipping routes**.  
 It **streams the latest forecast data from GFS and MEPS** (directly from MET Norway’s THREDDS servers) and makes interactive visualizations for decision making.
@@ -41,13 +41,13 @@ Sample input data is given is **sample_app_upload_data/**
 
 ### Shipping Routes
 
-| Longitude | Latitude |
-|-----------|----------|
-| 5.0       | 60.0     |
-| 10.0      | 62.0     |
-| 15.0      | 64.0     |
-| 7.0       | 58.0     |
-| 12.0      | 59.5     |
+| Longitude | Latitude | Time |
+|-----------|----------|------|
+| 5.0       | 60.0     | 0    |
+| 10.0      | 62.0     | 1    |
+| 15.0      | 64.0     | 3    |
+| 7.0       | 58.0     | 7    |
+| 12.0      | 59.5     | 31   |
 
 **Required columns for wind parks:**  
 - `Longitude`, `Latitude`, `RotorRadius_m`, `RatedPower_kW`, `CutInWind_mps`, `RatedWind_mps`, `CutoffWind_mps`  
