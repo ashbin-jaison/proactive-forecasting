@@ -64,9 +64,13 @@ Sample input data is given is **sample_app_upload_data/**
    pip install -r requirements.txt
    ```
 
-2. **Start the Streamlit app:**  
+2. **run the Streamlit app and visualisations:**  
    ```
-   streamlit run scripts/app_windpower.py
+   streamlit run scripts/app_windpower.py #for windpower potential forecasts
+   streamlit run scripts/app_shipping_route.py #for weather forecast in shipping routes
+
+   python scripts/gfs_atmos_animations # To visaulise atmospheric variables (wind, precipitation, cloud cover) from GFS
+
    ```
 
 3. **Upload your wind park and/or shipping route files** and explore the forecasts! 
