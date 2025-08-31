@@ -69,8 +69,9 @@ Sample input data is given is **sample_app_upload_data/**
    streamlit run scripts/app_windpower.py #for windpower potential forecasts
    streamlit run scripts/app_shipping_route.py #for weather forecast in shipping routes
 
-   python scripts/gfs_atmos_animations # To visaulise atmospheric variables (wind, precipitation, cloud cover) from GFS
-
+   python scripts/gfs_atmos_animations.py # To visualise atmospheric variables (wind, precipitation, cloud cover) from GFS
+   python scripts/gfs_ocean_wave.py # To visualise oceanic variables (wind, significant wave height) from GFS
+   python scripts/meps_atmos_animations.py # To visualise atmospheric variables (wind, precipitation, cloud cover) from MEPS
    ```
 
 3. **Upload your wind park and/or shipping route files** and explore the forecasts! 
