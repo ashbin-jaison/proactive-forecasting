@@ -74,12 +74,13 @@ Sample input data is given is **sample_app_upload_data/**
    python scripts/meps_atmos_animations.py # To visualise atmospheric variables (wind, precipitation, cloud cover) from MEPS
    ```
 
-3. **Upload your wind park and/or shipping route files** and explore the forecasts! 
+3. **Upload your wind park and/or shipping route files** and explore the forecasts. 
 
 ## Data Sources
 
-- Meteorological data: [MET Norway THREDDS](https://thredds.met.no/thredds/catalog.html)  
-  (GFS and MEPS, streamed live)
+- Regional forecast data: [MET Norway THREDDS](https://thredds.met.no/thredds/catalog.html)  
+  Postprocessed MEPS hourly forecasts which is updated every hour. Data contains forecasts of 15 key variables and gives forecasts for t+58h
+- Global forecast data: [GFS](https://nomads.ncep.noaa.gov/). 3-hour time stepped forecasts, initiated 4 times a day. Forecasts more than 200 atmospheric variables with 16-day lead time.
 - Country borders: [Natural Earth](https://www.naturalearthdata.com/)
 
 ## Project Structure

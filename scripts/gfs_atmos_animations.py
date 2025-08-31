@@ -47,15 +47,18 @@ for t in range(NUM_TIMESTEPS):
     wind = np.sqrt(ds_t["ugrd10m"]**2 + ds_t["vgrd10m"]**2).values
     cloud = ds_t["tcdcclm"].values
     precip = ds_t["apcpsfc"].values
+    pwat = ds_t["pwatclm"].values
     if sort_idx is not None:
         wind = wind[:, sort_idx]
         cloud = cloud[:, sort_idx]
         precip = precip[:, sort_idx]
+        pwat = pwat[:, sort_idx]
     # Create traces for each subplot
     frame_data = [
-        create_plots(wind, lon, lat, colorscale='RdYlBu_r', colorbar_x=1.0, colorbar_y= 5/6, colorbar_len = .25, zmin=0, zmax=35,text='m/s', hover_label='Wind'),
-        create_plots(cloud, lon, lat, colorscale='Blues',colorbar_x=1.0, colorbar_y=0.5, colorbar_len=0.25, zmin=0, zmax=1,text='%', hover_label='Cloud'),
-        create_plots(precip, lon, lat, colorscale='PuBuGn',colorbar_x=1.0, colorbar_y=1/6, colorbar_len=0.25, zmin=0, zmax=25,text='mm', hover_label='Precipitation')
+        create_plots(wind, lon, lat, colorscale='RdYlBu_r', colorbar_x=1.0, colorbar_y= 7/8, colorbar_len = .2, zmin=0, zmax=35,text='m/s', hover_label='Wind'),
+        create_plots(cloud, lon, lat, colorscale='Blues',colorbar_x=1.0, colorbar_y=5/8, colorbar_len=0.2, zmin=0, zmax=1,text='%', hover_label='Cloud'),
+        create_plots(precip, lon, lat, colorscale='PuBuGn',colorbar_x=1.0, colorbar_y=3/8, colorbar_len=0.2, zmin=0, zmax=25,text='mm', hover_label='Precipitation'),
+        create_plots(pwat, lon, lat, colorscale='rainbow',colorbar_x=1.0, colorbar_y=1/8, colorbar_len=0.2, zmin=0, zmax=70,text='mm', hover_label='Precipitable Water')
     ]
     # Add time label to frame name and layout
     frame_label = time_labels[t]
@@ -63,7 +66,7 @@ for t in range(NUM_TIMESTEPS):
         data=frame_data,
         name=frame_label,
         layout=go.Layout(
-            title_text=f"Wind Speed, Cloud Cover, and Precipitation - Forecast Animation - {frame_label}"
+            title_text=f"Wind Speed, Cloud Cover, Precipitation and Precipitable Water - {frame_label}"
         )
     ))
 
@@ -71,30 +74,34 @@ for t in range(NUM_TIMESTEPS):
 init_wind = np.sqrt(ds.isel(time=0)["ugrd10m"]**2 + ds.isel(time=0)["vgrd10m"]**2).values
 init_cloud = ds.isel(time=0)["tcdcclm"].values
 init_precip = ds.isel(time=0)["apcpsfc"].values
+init_pwat = ds.isel(time=0)["pwatclm"].values
+
 if sort_idx is not None:
     init_wind = init_wind[:, sort_idx]
     init_cloud = init_cloud[:, sort_idx]
     init_precip = init_precip[:, sort_idx]
+    init_pwat = init_pwat[:, sort_idx]
 
 init_time_label = time_labels[0]
 
 # make subplots
 fig = make_subplots(
-    rows=3, cols=1,
+    rows=4, cols=1,
     shared_xaxes=True, shared_yaxes=True,
-    vertical_spacing=0.04,
+    vertical_spacing=0.03,
     subplot_titles=(
         "Wind Speed at 10m (m/s)",
         "Total Cloud Cover (%)",
-        "Surface Total Precipitation (kg/m²)"
+        "Surface Total Precipitation (kg/m²)",
+        "Precipitable Water (mm)"
     )
 )
 
 # Add initial traces for each subplot
-fig.add_trace(create_plots(init_wind, lon, lat, colorscale='RdYlBu_r', colorbar_x=1.0, colorbar_y=5/6, colorbar_len=0.25, zmin=0, zmax=35,text='m/s', hover_label='Wind'), row=1, col=1)
-fig.add_trace(create_plots(init_cloud, lon, lat, colorscale='Blues', colorbar_x=1.0, colorbar_y=0.5, colorbar_len=0.25, text='%', hover_label='Cloud'), row=2, col=1)
-fig.add_trace(create_plots(init_precip, lon, lat, colorscale='PuBuGn',colorbar_x=1.0, colorbar_y=1/6, colorbar_len=0.25, zmin=0, zmax=25,text='mm', hover_label='Precipitation'), row=3, col=1)
-
+fig.add_trace(create_plots(init_wind, lon, lat, colorscale='RdYlBu_r', colorbar_x=1.0, colorbar_y=7/8, colorbar_len=0.20, zmin=0, zmax=35,text='m/s', hover_label='Wind'), row=1, col=1)
+fig.add_trace(create_plots(init_cloud, lon, lat, colorscale='Blues', colorbar_x=1.0, colorbar_y=5/8, colorbar_len=0.20, text='%', hover_label='Cloud'), row=2, col=1)
+fig.add_trace(create_plots(init_precip, lon, lat, colorscale='PuBuGn',colorbar_x=1.0, colorbar_y=3/8, colorbar_len=0.20, zmin=0, zmax=25,text='mm', hover_label='Precipitation'), row=3, col=1)
+fig.add_trace(create_plots(init_pwat, lon, lat, colorscale='rainbow',colorbar_x=1.0, colorbar_y=1/8, colorbar_len=0.20, zmin=0, zmax=70,text='mm', hover_label='Precipitable Water'), row=4, col=1)
 # Attach animation frames
 for frame in frames:
     for trace in frame.data:
@@ -108,15 +115,17 @@ yticks = np.linspace(lat.min(), lat.max(), 7)
 
 # Update layout for appearance and animation controls
 fig.update_layout(
-    title=f"Wind Speed, Cloud Cover, and Precipitation - Forecast Animation - {init_time_label}",
+    title=f"Wind Speed, Cloud Cover, Precipitation and Precipitable Water - {init_time_label}",
     width=1000,
-    height=1400,
+    height=1800,
     xaxis=dict(range=[lon.min(), lon.max()], tickvals=xticks, ticktext=[f"{v:.1f}" for v in xticks]),
     yaxis=dict(range=[lat.min(), lat.max()], tickvals=yticks, ticktext=[f"{v:.1f}" for v in yticks]),
     xaxis2=dict(range=[lon.min(), lon.max()], tickvals=xticks, ticktext=[f"{v:.1f}" for v in xticks]),
     yaxis2=dict(range=[lat.min(), lat.max()], tickvals=yticks, ticktext=[f"{v:.1f}" for v in yticks]),
     xaxis3=dict(range=[lon.min(), lon.max()], tickvals=xticks, ticktext=[f"{v:.1f}" for v in xticks]),
     yaxis3=dict(range=[lat.min(), lat.max()], tickvals=yticks, ticktext=[f"{v:.1f}" for v in yticks]),
+    xaxis4=dict(range=[lon.min(), lon.max()], tickvals=xticks, ticktext=[f"{v:.1f}" for v in xticks]),
+    yaxis4=dict(range=[lat.min(), lat.max()], tickvals=yticks, ticktext=[f"{v:.1f}" for v in yticks]),
     plot_bgcolor="rgb(230,230,230)",
     updatemenus=[dict(type="buttons", showactive=False, buttons=[
         dict(label="Play", method="animate", args=[time_labels[:NUM_TIMESTEPS], {"frame": {"duration": 500, "redraw": True}, "fromcurrent": True}]),
@@ -129,6 +138,7 @@ world = load_country_borders('data/ne_110m_admin_0_countries.zip')
 add_country_borders(fig, world, row=1, col=1)
 add_country_borders(fig, world, row=2, col=1)
 add_country_borders(fig, world, row=3, col=1)
+add_country_borders(fig, world, row=4, col=1)
 
 # show and save the plot
 pio.renderers.default = "browser"
