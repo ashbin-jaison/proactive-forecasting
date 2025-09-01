@@ -1,7 +1,7 @@
 # Proactive Forecast Visualisations, Wind Power & Shipping Route Forecasting
 
-This project provides an interactive platform for exploring wind power forecasts at user-specified wind park locations **and along shipping routes**.  
-It **streams the latest forecast data from GFS and MEPS** (directly from MET Norway’s THREDDS servers) and makes interactive visualizations for decision making.
+This project provides an interactive platform for exploring wind power forecasts at user-specified wind park locations and another platform for exploring weather along shipping routes.  
+It streams the latest forecast data from GFS and MEPS (directly from MET Norway’s THREDDS servers and GFS OPeNDAP) and makes interactive visualizations for decision making. Additionally, the project includes key visualizations for operational meteorology and GNSS applications.   
 
 ## Features
 
@@ -9,7 +9,7 @@ It **streams the latest forecast data from GFS and MEPS** (directly from MET Nor
 Always fetches the latest GFS and MEPS forecasts, therefore no manual downloads needed.
 
 - **🌪️ Weather Visualizations from GFS & MEPS** 
-Interactive maps of wind speed, precipitation, and cloud cover for each forecast time step.
+Interactive maps of wind speed, precipitation, cloud cover, etc., for each forecast time step.
 
 - **🗺️ Wind Power Potential Maps** 
 Animated spatial maps of wind power potential across the Nordic region, with time navigation and country borders.
@@ -18,7 +18,7 @@ Animated spatial maps of wind power potential across the Nordic region, with tim
 Upload wind park coordinates and turbine specs. The app extracts and visualizes wind speed & power output forecasts for each site.
 
 - **⛴️ Shipping Route Forecasts** 
-Upload shipping routes (waypoints). View wind speed, wind direction, and other weather variables along the path at each forecast timestep.
+Upload shipping routes (waypoints as coordinates). View wind speed, wind direction, and other weather variables along the path at each forecastS timestep.
 
 - **📊 Time Series Visualization** 
 Generate time series plots of wind speed, turbine output, and weather conditions along routes.
@@ -27,7 +27,7 @@ Generate time series plots of wind speed, turbine output, and weather conditions
 Supports hub height, rotor radius, rated power, cut-in/rated/cutoff wind speeds, wind shear exponent, and efficiency.
 
 - **📏 Automatic Hub-Height Adjustment** 
-Wind speeds at 10 m are scaled to turbine hub height using the power law.
+Wind speeds at 10 m are scaled to turbine hub height using the power law (Jung et al., 2021).
 
 
 ## Example Input Files
@@ -97,6 +97,11 @@ utils/
     plot.py                  # Plotting utilities
     geo.py                   # Geospatial utilities
 ```
+
+## References
+
+C. Jung and D. Schindler, “The Role of the Power Law Exponent inWind Energy Assessment: A Global Analysis,” International Journal ofEnergy Research 45, no. 6 (2021): 8484–8496, https://doi.org/10.1002/er.6382. 
+
 
 ## Acknowledgements
 - [NOAA](https://nomads.ncep.noaa.gov/)
