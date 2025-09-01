@@ -86,6 +86,10 @@ Sample input data is given is **sample_app_upload_data/**
 ## Project Structure
 
 ```
+data/ #stores the country boundary .shp file from natural earth
+
+sample_app_upload_data/ # contains excel file that could be uploaded into the streamlit app
+
 scripts/
     app_windpower.py         # Streamlit app for windpower estimation (uses MEPS forecast for fine resolution forecasts of atmospheric variables)
     app_shipping_route.py    # Streamlit app for weather forecast along shipping routes (uses GFS for longer forecast times and spatial coverage) 
